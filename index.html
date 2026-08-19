@@ -1187,11 +1187,16 @@
 
 
                             <p class="project-description">
-                                Built a Jenkins-based CI/CD pipeline to
-                                containerize and deploy a portfolio website
-                                on AWS EC2. Automated Docker image builds,
-                                publishing, infrastructure provisioning,
-                                and application deployment.
+                                I built and deployed my portfolio website using a complete DevOps CI/CD workflow.
+                                 The project demonstrates how source code can move from GitHub to a live AWS server through an automated deployment pipeline.
+
+                                The website is containerized using Docker with Nginx and the resulting Docker image is pushed to Docker Hub.
+                                 Jenkins acts as the CI/CD automation server. It checks out the latest code from GitHub, 
+                                 builds a new Docker image, authenticates with Docker Hub, pushes the image, 
+                                 connects to the AWS EC2 server through SSH, pulls the latest image, stops the previous container,
+                                removes it, and starts a new container with the updated website.
+
+                                The infrastructure was provisioned using Terraform, while AWS EC2 provides the environment where the website runs.
                             </p>
 
 
