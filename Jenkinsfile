@@ -9,15 +9,27 @@ pipeline {
             }
         }
 
-        stage('Docker Test') {
+        stage('Docker Build') {
             steps {
-                bat 'docker --version'
+                bat 'docker build -t devanshi2123/devanshi-portfolio-build:latest .'
             }
         }
 
-        stage('Test') {
+        stage('Docker Hub Push') {
             steps {
-                echo 'Portfolio CI/CD pipeline is working!'
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD'
+                    )
+                ]) {
+                    bat '''
+                        echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
+                        docker push devanshi2123/devanshi-portfolio-build:latest
+                        docker logout
+                    '''
+                }
             }
         }
     }
