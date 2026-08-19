@@ -32,5 +32,14 @@ pipeline {
                 }
             }
         }
+        stage('Test EC2 SSH') {
+            steps {
+                sshagent(['ec2-ssh-key']) {
+                    bat '''
+                        ssh -o StrictHostKeyChecking=no ubuntu@100.53.229.87 "echo EC2 SSH connection successful"
+                    '''
+                }
+            }
+        }
     }
 }
