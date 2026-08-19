@@ -32,11 +32,18 @@ pipeline {
                 }
             }
         }
+
         stage('Test EC2 SSH') {
             steps {
-                sshagent(['ec2-ssh-key']) {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: 'ec2-ssh-key',
+                        keyFileVariable: 'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    )
+                ]) {
                     bat '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@100.53.229.87 "echo EC2 SSH connection successful"
+                        ssh -i "%SSH_KEY%" -o StrictHostKeyChecking=no %SSH_USER%@100.53.229.87 "echo EC2 SSH connection successful"
                     '''
                 }
             }
