@@ -36,7 +36,7 @@ pipeline {
         stage('Test EC2 SSH') {
             steps {
                 bat '''
-                    ssh -i "C:\\Users\\Devanshi\\Downloads\\aws_shell_key.pem" -o StrictHostKeyChecking=no ubuntu@100.53.229.87 "echo EC2 SSH connection successful"
+                    ssh -i "C:\\ProgramData\\Jenkins\\.ssh\\aws_shell_key.pem" -o StrictHostKeyChecking=no ubuntu@100.53.229.87 "echo EC2 SSH connection successful"
                 '''
             }
         }
