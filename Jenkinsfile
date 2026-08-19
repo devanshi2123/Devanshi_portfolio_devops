@@ -35,17 +35,9 @@ pipeline {
 
         stage('Test EC2 SSH') {
             steps {
-                withCredentials([
-                    sshUserPrivateKey(
-                        credentialsId: 'ec2-ssh-key',
-                        keyFileVariable: 'SSH_KEY',
-                        usernameVariable: 'SSH_USER'
-                    )
-                ]) {
-                    bat '''
-                        ssh -i "%SSH_KEY%" -o StrictHostKeyChecking=no %SSH_USER%@100.53.229.87 "echo EC2 SSH connection successful"
-                    '''
-                }
+                bat '''
+                    ssh -i "C:\\Users\\Devanshi\\Downloads\\aws_shell_key.pem" -o StrictHostKeyChecking=no ubuntu@100.53.229.87 "echo EC2 SSH connection successful"
+                '''
             }
         }
     }
