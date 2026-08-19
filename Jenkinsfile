@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -40,5 +41,14 @@ pipeline {
                 '''
             }
         }
+
+        stage('Deploy to EC2') {
+            steps {
+                bat '''
+                    ssh -i "C:\\ProgramData\\Jenkins\\.ssh\\aws_shell_key.pem" -o StrictHostKeyChecking=no ubuntu@100.53.229.87 "docker pull devanshi2123/devanshi-portfolio-build:latest && docker stop portfolio || true && docker rm portfolio || true && docker run -d --name portfolio -p 8081:80 devanshi2123/devanshi-portfolio-build:latest"
+                '''
+            }
+        }
     }
 }
+```
